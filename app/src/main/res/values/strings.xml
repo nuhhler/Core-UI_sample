@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Core-UI_sample</string>
+    <string name="action_settings">Settings</string>
+    <string name="addContactBtn">Add Contact</string>
+    <string name="RecalculateBtn">Recalculate</string>
+
+</resources>
