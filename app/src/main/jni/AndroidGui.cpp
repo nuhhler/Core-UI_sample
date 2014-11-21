@@ -1,5 +1,5 @@
 #include "AndroidGui.h"
-#include "GabAsyncResponse.h"
+#include "./Core/GabAsyncResponse.h"
 #include "AndroidLog.h"
 
 JavaVM* AndroidGui::JVM = NULL;

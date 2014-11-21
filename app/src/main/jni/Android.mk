@@ -9,7 +9,8 @@ LOCAL_MODULE    := core
 
 LOCAL_C_INCLUDES += /home/sdv/work/android-ndk-r10/sources/cxx-stl/gnu-libstdc++/4.9/include/
 
-LOCAL_SRC_FILES := com_gab_test_core_ui_sample_Core.cpp AndroidGabCoreWrapper.cpp GabCore.cpp GabAsyncResponse.cpp GabContact.cpp AndroidGui.cpp
+#LOCAL_SRC_FILES := com_gab_test_core_ui_sample_Core.cpp AndroidGabCoreWrapper.cpp GabCore.cpp GabAsyncResponse.cpp GabContact.cpp AndroidGui.cpp
+LOCAL_SRC_FILES := com_gab_test_core_ui_sample_Core.cpp AndroidGabCoreWrapper.cpp Core/GabCore.cpp Core/GabAsyncResponse.cpp Core/GabContact.cpp AndroidGui.cpp
 
 LOCAL_CPPFLAGS := -std=c++11 -pthread -fexceptions --rtti
 

@@ -1,7 +1,7 @@
 #include "AndroidGabCoreWrapper.h"
 
-#include "GabCore.h"
-#include "GabContact.h"
+#include "./Core/GabCore.h"
+#include "./Core/GabContact.h"
 #include "AndroidLog.h"
 #include <unistd.h>
 #include <stdlib.h>

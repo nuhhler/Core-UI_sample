@@ -1,7 +1,7 @@
 #include "GabCore.h"
 #include "GabGui.h"
-#include "AndroidGui.h"
-#include "AndroidLog.h"
+#include "../AndroidGui.h"
+#include "../AndroidLog.h"
 #include <stdlib.h>
 
 
@@ -51,7 +51,7 @@ GabAsyncResponse GabCore::AddRandContact()
 #ifdef _WIN32
     Sleep(5000);
 #elif defined (__ANDROID__) || defined (__linux__)
-    sleep(5);
+    sleep(15);
 #endif
     GabContact aGabContact("Random_" + myList.size() );
     myList.push_back(aGabContact);

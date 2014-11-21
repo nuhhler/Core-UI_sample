@@ -1,7 +1,7 @@
 #pragma once
 
 #include <jni.h>
-#include "GabGui.h"
+#include "./Core/GabGui.h"
 
 
 class AndroidGui: public GabGui
