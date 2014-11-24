@@ -11,7 +11,8 @@ public:
 
     static JavaVM* JVM;
     static jclass JCLASS;
-    static jmethodID MID_ADD_CONTACT;
+    static jmethodID MID_OnIncomingContact;
+    static jobject OBJECT;
 
 private:
     static JNIEnv* getJniEnv();

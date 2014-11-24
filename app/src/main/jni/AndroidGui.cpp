@@ -1,10 +1,12 @@
 #include "AndroidGui.h"
 #include "./Core/GabAsyncResponse.h"
+#include "./Core/GabContact.h"
 #include "AndroidLog.h"
 
 JavaVM* AndroidGui::JVM = NULL;
 jclass AndroidGui::JCLASS = NULL;
-jmethodID AndroidGui::MID_ADD_CONTACT = NULL;
+jmethodID AndroidGui::MID_OnIncomingContact = NULL;
+jobject AndroidGui::OBJECT = NULL;
 
 void AndroidGui::AddContact( const GabAsyncResponse& theResponse )
 {
@@ -12,7 +14,15 @@ void AndroidGui::AddContact( const GabAsyncResponse& theResponse )
     JNIEnv* pEnv = getJniEnv();
     if( pEnv != NULL )
     {
-        getJniEnv()->CallStaticVoidMethod(JCLASS, MID_ADD_CONTACT, pEnv->NewStringUTF("hello"));
+        const GabContact& aCont = theResponse.GetContact();
+        const std::string& stdName = aCont.GetName();
+        ANDROID_LOG_INFO( "AndroidGui::AddContact get std name" );
+        const char* chName = stdName.c_str();
+        ANDROID_LOG_INFO( "AndroidGui::AddContact name: %s", chName );
+
+        jstring jName = pEnv->NewStringUTF( chName );
+        ANDROID_LOG_INFO( "run AndroidGui::AddContact name created" );
+        getJniEnv()->CallVoidMethod(OBJECT, MID_OnIncomingContact, jName);
     }
 }
 

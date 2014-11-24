@@ -1,6 +1,7 @@
 package com.gab.test.core_ui_sample;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,6 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.concurrent.Executor;
@@ -24,6 +26,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class PressMe extends Activity {
 
     static final String LOG_TAG = "Log MainActivity";
+    static final String JNI_TAG = "Log From JNI";
 
     private static final int MY_CORE_POOL_SIZE = 10;
     private static final int MY_MAXIMUM_POOL_SIZE = MY_CORE_POOL_SIZE * 2 + 1;
@@ -42,12 +45,36 @@ public class PressMe extends Activity {
                         }
                     });
 
+    static {
+        try {
+            System.loadLibrary("core");
+            init();
+        } catch (UnsatisfiedLinkError ex) {
+            Log.e(JNI_TAG, ex.getMessage());
+        }
+        catch( NoClassDefFoundError ex) {
+            // can't find class 'PressMe'
+            Log.e(JNI_TAG, ex.getMessage());
+        }
+        catch(  NoSuchMethodError ex) {
+            // can't find PressMe.OnIncomingContact(String)
+            Log.e(JNI_TAG, ex.getMessage());
+        }
+        catch (Throwable ex) {
+            Log.e(JNI_TAG, ex.getMessage());
+        }
+    }
+
     private Button addContact;
     private Button recalculate;
     private TextView nmbContactsTV;
     private ListView contactLV;
     private ArrayAdapter<String> sAdapter;
     public ArrayList<String> data;
+
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,15 +84,12 @@ public class PressMe extends Activity {
         new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... params) {
-                Core.startWaitingContacts();
+                startWaitingContacts();
                 return null;
             }
         }.executeOnExecutor(MY_THREAD_POOL_EXECUTOR);
 
-
         setContentView(R.layout.activity_press_me);
-
-        Log.i(LOG_TAG, "nmb of threads " + String.valueOf(Runtime.getRuntime().availableProcessors()));
 
         addContact = (Button) findViewById( R.id.addContactBtn );
         addContact.setOnClickListener( new View.OnClickListener() {
@@ -137,4 +161,20 @@ public class PressMe extends Activity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+    native void startWaitingContacts();
+    void OnIncomingContact( final String theName )
+    {
+        Log.i(LOG_TAG, "incomingContact " + theName);
+        runOnUiThread( new Runnable() {
+            public void run() {
+                data.add( theName );
+                nmbContactsTV.setText(String.valueOf(data.size()));
+                sAdapter.notifyDataSetChanged();
+                Toast.makeText(getApplicationContext(), "New incoming contact " + theName, Toast.LENGTH_SHORT).show();
+            }
+        } );
+    }
+
+    native static void init();
 }

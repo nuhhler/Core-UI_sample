@@ -26,6 +26,6 @@ void AndroidGabCoreWrapper::startWaitingContacts()
 {
     while( true )
     {
-        const GabContact& aContact = getInstance().AddRandContact().GetContact();
+        getInstance().AddRandContact();
     }
 }

@@ -39,7 +39,7 @@ GabAsyncResponse GabCore::AddContact(const GabContact& theContact)
 #ifdef _WIN32
     Sleep(1000);
 #elif defined (__ANDROID__) || defined (__linux__)
-    sleep(1);
+    sleep(5);
 #endif
     myList.push_back(theContact);
     return GabAsyncResponse(theContact);
@@ -60,7 +60,6 @@ GabAsyncResponse GabCore::AddRandContact()
     GabGui* gui = getGui();
     if( gui != NULL )
     {
-        ANDROID_LOG_INFO( "AddRandContact: gui not null" );
         gui->AddContact(result);
     }
 

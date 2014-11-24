@@ -23,22 +23,6 @@ JNIEXPORT jint JNICALL Java_com_gab_test_core_1ui_1sample_Core_GetNumberOfContac
 JNIEXPORT jstring JNICALL Java_com_gab_test_core_1ui_1sample_Core_AddContact
   (JNIEnv *, jclass, jstring);
 
-/*
- * Class:     com_gab_test_core_ui_sample_Core
- * Method:    startWaitingContacts
- * Signature: ()V
- */
-JNIEXPORT void JNICALL Java_com_gab_test_core_1ui_1sample_Core_startWaitingContacts
-  (JNIEnv *, jclass);
-
-/*
- * Class:     com_gab_test_core_ui_sample_Core
- * Method:    init
- * Signature: ()V
- */
-JNIEXPORT void JNICALL Java_com_gab_test_core_1ui_1sample_Core_init
-  (JNIEnv *, jclass);
-
 #ifdef __cplusplus
 }
 #endif
