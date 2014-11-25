@@ -1,5 +1,13 @@
-#APP_STL := stlport_static
+NDK_TOOLCHAIN_VERSION := 4.9
+
+APP_USE_CPP0X := true
+
 APP_STL := gnustl_static
+
+APP_CPPFLAGS := -std=c++11
+APP_CPPFLAGS += -pthread
+APP_CPPFLAGS += -fexceptions
+APP_CPPFLAGS += --rtti
 
 APP_ABI := armeabi armeabi-v7a mips x86
 

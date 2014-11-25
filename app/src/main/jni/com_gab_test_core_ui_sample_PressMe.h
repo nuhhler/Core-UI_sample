@@ -21,14 +21,6 @@ extern "C" {
 JNIEXPORT void JNICALL Java_com_gab_test_core_1ui_1sample_PressMe_startWaitingContacts
   (JNIEnv *, jobject);
 
-/*
- * Class:     com_gab_test_core_ui_sample_PressMe
- * Method:    init
- * Signature: ()V
- */
-JNIEXPORT void JNICALL Java_com_gab_test_core_1ui_1sample_PressMe_init
-  (JNIEnv *, jclass);
-
 #ifdef __cplusplus
 }
 #endif

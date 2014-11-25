@@ -4,8 +4,6 @@
 #include "../AndroidLog.h"
 #include <stdlib.h>
 
-
-
 #ifdef _WIN32
 #include <windows.h>
 #elif defined (__ANDROID__) || defined(__linux__) 
@@ -21,7 +19,7 @@ GabGui* GabCore::getGui()
     GabGui* result = NULL;
 #ifdef _WIN32
     result = NULL;
-#elif defined (__ANDROID__)
+#elif defined (__ANDROID__) // note: Android should be appear than Linux
     result = new AndroidGui();
 #elif defined (__linux__)
     result = NULL;
@@ -53,7 +51,8 @@ GabAsyncResponse GabCore::AddRandContact()
 #elif defined (__ANDROID__) || defined (__linux__)
     sleep(15);
 #endif
-    GabContact aGabContact("Random_" + myList.size() );
+    std::string name = std::string("Incoming Contact ");// + std::to_string(myList.size());
+    GabContact aGabContact(name);
     myList.push_back(aGabContact);
 
     GabAsyncResponse result(aGabContact);

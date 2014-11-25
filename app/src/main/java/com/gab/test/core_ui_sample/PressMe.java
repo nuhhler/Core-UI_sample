@@ -48,16 +48,7 @@ public class PressMe extends Activity {
     static {
         try {
             System.loadLibrary("core");
-            init();
         } catch (UnsatisfiedLinkError ex) {
-            Log.e(JNI_TAG, ex.getMessage());
-        }
-        catch( NoClassDefFoundError ex) {
-            // can't find class 'PressMe'
-            Log.e(JNI_TAG, ex.getMessage());
-        }
-        catch(  NoSuchMethodError ex) {
-            // can't find PressMe.OnIncomingContact(String)
             Log.e(JNI_TAG, ex.getMessage());
         }
         catch (Throwable ex) {
@@ -84,7 +75,16 @@ public class PressMe extends Activity {
         new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... params) {
-                startWaitingContacts();
+                try{
+                    startWaitingContacts();
+                }
+                catch(  NoSuchMethodError ex) {
+                    // can't find PressMe.OnIncomingContact(String)
+                    Log.e(JNI_TAG, ex.getMessage());
+                }
+                catch (Throwable ex) {
+                    Log.e(JNI_TAG, ex.getMessage());
+                }
                 return null;
             }
         }.executeOnExecutor(MY_THREAD_POOL_EXECUTOR);
@@ -175,6 +175,4 @@ public class PressMe extends Activity {
             }
         } );
     }
-
-    native static void init();
 }

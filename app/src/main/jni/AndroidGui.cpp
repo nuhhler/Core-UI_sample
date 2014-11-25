@@ -14,14 +14,8 @@ void AndroidGui::AddContact( const GabAsyncResponse& theResponse )
     JNIEnv* pEnv = getJniEnv();
     if( pEnv != NULL )
     {
-        const GabContact& aCont = theResponse.GetContact();
-        const std::string& stdName = aCont.GetName();
-        ANDROID_LOG_INFO( "AndroidGui::AddContact get std name" );
-        const char* chName = stdName.c_str();
-        ANDROID_LOG_INFO( "AndroidGui::AddContact name: %s", chName );
-
-        jstring jName = pEnv->NewStringUTF( chName );
-        ANDROID_LOG_INFO( "run AndroidGui::AddContact name created" );
+        const std::string& stdName = theResponse.GetContact().GetName();
+        jstring jName = pEnv->NewStringUTF( stdName.c_str() );
         getJniEnv()->CallVoidMethod(OBJECT, MID_OnIncomingContact, jName);
     }
 }
